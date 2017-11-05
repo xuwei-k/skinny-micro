@@ -35,12 +35,6 @@ lazy val baseSettings = Seq(
   scalaVersion := "2.12.4",
   ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
   scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-Xfuture"),
-  scalacOptions in (Compile, doc) ++= {
-    CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, v)) if v <= 11 => Nil
-      case _ => Seq("-no-java-comments") // https://issues.scala-lang.org/browse/SI-10020
-    }
-  },
   publishArtifact in Test := false,
   pomIncludeRepository := { x => false },
   transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
