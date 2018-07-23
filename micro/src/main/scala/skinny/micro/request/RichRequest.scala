@@ -11,7 +11,6 @@ import skinny.micro.data.{ AttributesMap, MultiMap, MultiMapHeadView }
 import skinny.micro.implicits.RicherStringImplicits
 
 import scala.collection.JavaConverters._
-import scala.collection.immutable.DefaultMap
 import scala.collection.{ Map => CMap }
 import scala.io.Source
 
@@ -107,7 +106,7 @@ case class RichRequest(r: HttpServletRequest) extends AttributesMap {
    * A map of headers.  Multiple header values are separated by a ','
    * character.  The keys of this map are case-insensitive.
    */
-  object headers extends DefaultMap[String, String] {
+  object headers extends skinny.micro.util.DefaultMap[String, String] {
 
     def get(name: String): Option[String] = Option(r.getHeader(name))
 

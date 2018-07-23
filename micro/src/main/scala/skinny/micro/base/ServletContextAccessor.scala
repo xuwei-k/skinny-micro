@@ -9,7 +9,6 @@ import skinny.micro.{ Initializable, SkinnyMicroBase }
 import skinny.micro.context.SkinnyContext
 import skinny.micro.cookie.{ Cookie, CookieOptions }
 
-import scala.collection.immutable.DefaultMap
 import scala.collection.JavaConverters._
 
 /**
@@ -44,7 +43,7 @@ trait ServletContextAccessor
 
     override def context: ServletContext = config.getServletContext
 
-    object initParameters extends DefaultMap[String, String] {
+    lazy val initParameters: Map[String, String] = new skinny.micro.util.DefaultMap[String, String] {
 
       override def get(key: String): Option[String] = Option(config.getInitParameter(key))
 

@@ -15,7 +15,7 @@ lazy val logbackVersion = "1.2.3"
 lazy val slf4jApiVersion = "1.7.25"
 lazy val jacksonVersion = "2.9.6"
 lazy val jacksonScalaVersion = "2.9.6"
-lazy val scalaTestVersion = "3.0.5"
+lazy val scalaTestVersion = "3.0.6-SNAP1"
 lazy val collectionCompatVersion = "0.1.1"
 
 lazy val baseSettings = Seq(
@@ -33,7 +33,7 @@ lazy val baseSettings = Seq(
   publishMavenStyle := true,
   sbtPlugin := false,
   scalaVersion := "2.12.6",
-  crossScalaVersions := Seq("2.12.6", "2.11.12"),
+  crossScalaVersions := Seq("2.12.6", "2.11.12", "2.13.0-M4"),
   scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-Xfuture"),
   scalacOptions in (Compile, doc) ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
@@ -48,6 +48,15 @@ lazy val baseSettings = Seq(
   javaOptions in Test ++= Seq("-Dskinny.env=test"),
   fork in Test := true,
   updateOptions := updateOptions.value.withCachedResolution(true),
+  unmanagedSourceDirectories in Compile += {
+    val base = baseDirectory.value / "src" / "main"
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, v)) if v >= 13 =>
+        base / s"scala-2.13+"
+      case _ =>
+        base / s"scala-2.13-"
+    }
+  },
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-encoding", "UTF-8", "-Xlint:-options"),
   javacOptions in doc := Seq("-source", "1.8"),
   // https://github.com/sbt/sbt/issues/653
