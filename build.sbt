@@ -8,8 +8,8 @@ import scala.language.postfixOps
 
 lazy val currentVersion = "2.0.1-RC1"
 
-lazy val json4SVersion = "3.6.2"
-lazy val mockitoVersion = "2.23.0"
+lazy val json4SVersion = "3.6.3"
+lazy val mockitoVersion = "2.23.4"
 lazy val jettyVersion = "9.4.12.v20180830"
 lazy val logbackVersion = "1.2.3"
 lazy val slf4jApiVersion = "1.7.25"
@@ -146,7 +146,7 @@ lazy val microJson4s = (project in file("micro-json4s")).settings(baseSettings +
   name := "skinny-micro-json4s",
   libraryDependencies ++= servletApiDependencies ++ json4sDependencies ++ Seq(
     "joda-time"         %  "joda-time"          % "2.10.1"         % Compile,
-    "org.joda"          %  "joda-convert"       % "2.1.2"        % Compile,
+    "org.joda"          %  "joda-convert"       % "2.2.0"        % Compile,
     "ch.qos.logback"    %  "logback-classic"    % logbackVersion % Test
   )
 )).dependsOn(micro, scalatraTest % Test)
@@ -184,7 +184,7 @@ lazy val scalatraTest = (project in file("scalatra-test")).settings(baseSettings
     "org.apache.httpcomponents" % "httpclient" % "4.5.6"          % Compile,
     "org.apache.httpcomponents" % "httpmime"   % "4.5.6"          % Compile,
     "org.scalatest"      %% "scalatest"        % scalatestV.value % Compile,
-    "org.specs2"         %% "specs2-core"      % "4.3.5"          % Compile
+    "org.specs2"         %% "specs2-core"      % "4.3.6"          % Compile
   )
 ))
 
