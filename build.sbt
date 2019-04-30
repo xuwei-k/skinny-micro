@@ -146,7 +146,7 @@ lazy val microJson4s = (project in file("micro-json4s")).settings(baseSettings +
   name := "skinny-micro-json4s",
   libraryDependencies ++= servletApiDependencies ++ json4sDependencies ++ Seq(
     "joda-time"         %  "joda-time"          % "2.10.1"         % Compile,
-    "org.joda"          %  "joda-convert"       % "2.2.0"        % Compile,
+    "org.joda"          %  "joda-convert"       % "2.2.1"        % Compile,
     "ch.qos.logback"    %  "logback-classic"    % logbackVersion % Test
   )
 )).dependsOn(micro, scalatraTest % Test)
