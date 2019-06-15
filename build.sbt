@@ -14,7 +14,7 @@ lazy val jettyVersion = "9.4.16.v20190411"
 lazy val logbackVersion = "1.2.3"
 lazy val slf4jApiVersion = "1.7.26"
 lazy val jacksonVersion = "2.9.8"
-lazy val jacksonScalaVersion = "2.9.8"
+lazy val jacksonScalaVersion = "2.9.9"
 lazy val scalatestV = SettingKey[String]("scalatestVersion")
 
 lazy val baseSettings = Seq(
@@ -31,7 +31,7 @@ lazy val baseSettings = Seq(
   ),
   scalatestV := {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, v)) if v >= 13 => "3.0.8-RC2"
+      case Some((2, v)) if v >= 13 => "3.0.8"
       case _ =>                       "3.0.6"
     }
   },
@@ -44,8 +44,8 @@ lazy val baseSettings = Seq(
   },
   publishMavenStyle := true,
   sbtPlugin := false,
-  scalaVersion := "2.13.0-RC1",
-  crossScalaVersions := Seq("2.13.0-RC1", "2.12.8", "2.11.12"),
+  scalaVersion := "2.13.0",
+  crossScalaVersions := Seq("2.13.0", "2.12.8", "2.11.12"),
   scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-Xfuture"),
   scalacOptions += {
     CrossVersion.partialVersion(scalaVersion.value) match {
@@ -127,7 +127,7 @@ lazy val micro = (project in file("micro")).settings(baseSettings ++ mimaSetting
 
 lazy val microJackson = (project in file("micro-jackson")).settings(baseSettings ++ mimaSettings ++ Seq(
   name := "skinny-micro-jackson",
-  libraryDependencies ++= servletApiDependencies ++ (if (scalaVersion.value.startsWith("2.13")) jacksonDependencies213 else jacksonDependencies) ++ Seq(
+  libraryDependencies ++= servletApiDependencies ++ jacksonDependencies ++ Seq(
     "ch.qos.logback"    %  "logback-classic"    % logbackVersion % Test
   ),
   libraryDependencies += "org.scala-lang" %  "scala-reflect"  % scalaVersion.value
@@ -135,7 +135,7 @@ lazy val microJackson = (project in file("micro-jackson")).settings(baseSettings
 
 lazy val microJacksonXml = (project in file("micro-jackson-xml")).settings(baseSettings ++ mimaSettings ++ Seq(
   name := "skinny-micro-jackson-xml",
-  libraryDependencies ++= servletApiDependencies ++  (if (scalaVersion.value.startsWith("2.13")) jacksonDependencies213 else jacksonDependencies) ++ Seq(
+  libraryDependencies ++= servletApiDependencies ++ jacksonDependencies ++ Seq(
     "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-xml" % jacksonVersion % Compile,
     "org.codehaus.woodstox"            %  "woodstox-core-asl"      % "4.4.1"        % Compile,
     "ch.qos.logback"                   %  "logback-classic"        % logbackVersion % Test
@@ -154,7 +154,7 @@ lazy val microJson4s = (project in file("micro-json4s")).settings(baseSettings +
 lazy val microScalate = (project in file("micro-scalate")).settings(baseSettings ++ mimaSettings ++ Seq(
   name := "skinny-micro-scalate",
   libraryDependencies ++= slf4jApiDependencies ++ servletApiDependencies ++ Seq(
-    "org.scalatra.scalate"  %% "scalate-core"       % "1.9.3"    % Compile excludeAll(fullExclusionRules: _*),
+    "org.scalatra.scalate"  %% "scalate-core"       % "1.9.4"    % Compile excludeAll(fullExclusionRules: _*),
     "ch.qos.logback"        %  "logback-classic"    % logbackVersion % Test
   )
 )).dependsOn(micro, scalatraTest % Test)
@@ -172,7 +172,7 @@ lazy val scalatraTest = (project in file("scalatra-test")).settings(baseSettings
   name := "scalatra-test",
   libraryDependencies ++= servletApiDependencies ++ slf4jApiDependencies ++ Seq(
     "org.scala-lang.modules" %% "scala-collection-compat" % {
-      if (scalaVersion.value == "2.13.0-RC1") "1.0.0"
+      if (scalaBinaryVersion.value == "2.13") "2.0.0"
       else "0.1.1" // for backward compatibilities
     },
     "com.googlecode.juniversalchardet" % "juniversalchardet" % "1.0.3" % Compile,
@@ -230,10 +230,7 @@ lazy val slf4jApiDependencies   = Seq(
 lazy val jacksonDependencies = Seq(
   "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonScalaVersion % Compile
 )
-// TODO: replacae with officially released one
-lazy val jacksonDependencies213 = Seq(
-  "org.skinny-framework.com.fasterxml.jackson.module" %% "jackson-module-scala" % (jacksonScalaVersion + "-fork-20190413") % Compile
-)
+
 lazy val json4sDependencies = Seq(
   "org.json4s"    %% "json4s-jackson"     % json4SVersion    % Compile  excludeAll(fullExclusionRules: _*),
   "org.json4s"    %% "json4s-native"      % json4SVersion    % Provided excludeAll(fullExclusionRules: _*),
