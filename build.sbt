@@ -9,7 +9,7 @@ import scala.language.postfixOps
 lazy val currentVersion = "2.1.0"
 
 lazy val json4SVersion = "3.6.6"
-lazy val mockitoVersion = "2.26.0"
+lazy val mockitoVersion = "2.28.2"
 lazy val jettyVersion = "9.4.16.v20190411"
 lazy val logbackVersion = "1.2.3"
 lazy val slf4jApiVersion = "1.7.26"
@@ -166,7 +166,7 @@ lazy val microServer = (project in file("micro-server")).settings(baseSettings +
 lazy val scalatraTest = (project in file("scalatra-test")).settings(baseSettings ++ Seq(
   name := "scalatra-test",
   libraryDependencies ++= servletApiDependencies ++ slf4jApiDependencies ++ Seq(
-    "org.scala-lang.modules" %% "scala-collection-compat" % "2.0.0",
+    "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.0",
     "com.googlecode.juniversalchardet" % "juniversalchardet" % "1.0.3" % Compile,
     "junit"              %  "junit"            % "4.12"           % Compile,
     "org.testng"         %  "testng"           % "6.14.3"         % Compile,
