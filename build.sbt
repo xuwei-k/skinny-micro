@@ -8,8 +8,8 @@ import scala.language.postfixOps
 
 lazy val currentVersion = "2.1.0"
 
-lazy val json4SVersion = "3.6.6"
-lazy val mockitoVersion = "2.26.0"
+lazy val json4SVersion = "3.6.7"
+lazy val mockitoVersion = "2.28.2"
 lazy val jettyVersion = "9.4.16.v20190411"
 lazy val logbackVersion = "1.2.3"
 lazy val slf4jApiVersion = "1.7.26"
@@ -140,7 +140,7 @@ lazy val microJacksonXml = (project in file("micro-jackson-xml")).settings(baseS
 lazy val microJson4s = (project in file("micro-json4s")).settings(baseSettings ++ mimaSettings ++ Seq(
   name := "skinny-micro-json4s",
   libraryDependencies ++= servletApiDependencies ++ json4sDependencies ++ Seq(
-    "joda-time"         %  "joda-time"          % "2.10.2"         % Compile,
+    "joda-time"         %  "joda-time"          % "2.10.3"         % Compile,
     "org.joda"          %  "joda-convert"       % "2.2.1"        % Compile,
     "ch.qos.logback"    %  "logback-classic"    % logbackVersion % Test
   )
@@ -166,7 +166,7 @@ lazy val microServer = (project in file("micro-server")).settings(baseSettings +
 lazy val scalatraTest = (project in file("scalatra-test")).settings(baseSettings ++ Seq(
   name := "scalatra-test",
   libraryDependencies ++= servletApiDependencies ++ slf4jApiDependencies ++ Seq(
-    "org.scala-lang.modules" %% "scala-collection-compat" % "2.0.0",
+    "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.1",
     "com.googlecode.juniversalchardet" % "juniversalchardet" % "1.0.3" % Compile,
     "junit"              %  "junit"            % "4.12"           % Compile,
     "org.testng"         %  "testng"           % "6.14.3"         % Compile,
@@ -176,7 +176,7 @@ lazy val scalatraTest = (project in file("scalatra-test")).settings(baseSettings
     "org.apache.httpcomponents" % "httpclient" % "4.5.6"          % Compile, // TODO: 4.5.7 behaves differently
     "org.apache.httpcomponents" % "httpmime"   % "4.5.6"          % Compile,
     "org.scalatest"      %% "scalatest"        % scalatestV.value % Compile,
-    "org.specs2"         %% "specs2-core"      % "4.5.1"          % Compile
+    "org.specs2"         %% "specs2-core"      % "4.6.0"          % Compile
   )
 ))
 
